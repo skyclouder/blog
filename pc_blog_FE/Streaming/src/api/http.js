@@ -29,10 +29,11 @@ $http.interceptors.response.use(
 
 //统一接口请求封装
 function fetch(method = 'get', url, params) {
+    const env  = process.env.NODE_ENV === 'production'? 0:1
     return new Promise((resolve, reject) => {
         $http(
             {
-                url: url,
+                url: env===1?url:url.replace(/\/api/,""),
                 method: method,
                 data: params
             }

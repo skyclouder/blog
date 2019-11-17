@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import comService from '../api/api'
+import comService from "../api/api";
 export default {
   name: "RigAndLog",
   data() {
@@ -107,7 +107,13 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          console.log(this.$data);
+          const { email, name, pass } = this.formLabelAlign;
+          let params = {
+            user_id: email,
+            user_name: name,
+            user_pwd: pass
+          };
+          comService.reg(params).then(data => {});
         } else {
           console.log("error submit!!");
           return false;
@@ -119,21 +125,25 @@ export default {
     },
     login() {
       let params = {
-        username: "zmq",
-        pws: "sss",
-        email: "ddd"
+        user_id: "670745249@qq.com",
+        user_name: "pqp",
+        user_pwd: "pppqqq125"
       };
       comService.login(params).then(data => {
-        console.log(data);
+        console.log(data.status);
+        if (data.status == 200) {
+          this.$router.push({ path: "/home", query: {} });
+        }
       });
     },
+    reg() {},
     changePage() {
       this.$data.isActive = !this.$data.isActive;
       this.$refs.formLabelAlign.resetFields();
     }
   },
   updated() {
-    console.log("更新")
+    console.log("更新");
     let inputArr = document.querySelectorAll(".el-input__inner");
     for (let i of inputArr) {
       i.style.paddingLeft = "30px";
