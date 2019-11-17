@@ -32,8 +32,9 @@ let createTable = function (sql) {
     return query(sql, [])
 }
 query("show databases").then(d => {
-    for (let i of d) {
-        if (i.Database === "blog") {
+    for (let i =0;i<d.length;i++) {
+        console.log(i)
+        if (d[i].Database === "blog") {
             console.log("数据库已初始化")
         } else {
             createTable(createTables.users)
