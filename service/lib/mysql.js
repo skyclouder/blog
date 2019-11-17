@@ -10,6 +10,7 @@ var pool = mysql.createPool({
 })
 
 let query = function (sql, values) {
+    console.log(sql, values)
     return new Promise((resolve, reject) => {
         pool.getConnection(function (err, connection) {
             if (err) {
@@ -31,18 +32,16 @@ let query = function (sql, values) {
 let createTable = function (sql) {
     return query(sql, [])
 }
-query("show databases").then(d => {
-    for (let i =0;i<d.length;i++) {
-        console.log(i)
-        if (d[i].Database === "blog") {
-            console.log("数据库已初始化")
-        } else {
-            createTable(createTables.users)
-            createTable(createTables.role)
-            createTable(createTables.permission)
-            createTable(createTables.userRole)
-            createTable(createTables.rolePermission)
-        }
+query("show tables").then(d => {
+    if (d.length !== 0) {
+        console.log("数据表已经创建")
+    } else {
+        console.log("即将创建。。。。")
+        createTable(createTables.users)
+        createTable(createTables.role)
+        createTable(createTables.permission)
+        createTable(createTables.userRole)
+        createTable(createTables.rolePermission)
     }
 })
 
