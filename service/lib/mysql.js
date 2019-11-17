@@ -31,16 +31,17 @@ let query = function (sql, values) {
 let createTable = function (sql) {
     return query(sql, [])
 }
-query("SHOW TABLES LIKE 'permission_info'").then(d => {
-    if (d.length !== 0) {
-        console.log("数据表已经创建成功")
-    }
-    else {
-        createTable(createTables.users)
-        createTable(createTables.role)
-        createTable(createTables.permission)
-        createTable(createTables.userRole)
-        createTable(createTables.rolePermission)
+query("show databases").then(d => {
+    for (let i of d) {
+        if (i.Database === "blog") {
+            console.log("数据库已初始化")
+        } else {
+            createTable(createTables.users)
+            createTable(createTables.role)
+            createTable(createTables.permission)
+            createTable(createTables.userRole)
+            createTable(createTables.rolePermission)
+        }
     }
 })
 
@@ -81,10 +82,10 @@ let UpdataUserInfo = async function (value) {
 }
 
 //用户注册
-let insertUserinfo =async function(value) {
+let insertUserinfo = async function (value) {
     let _sql = "insert into user_info(user_id, user_name, user_pwd) values(?,?,?);";
     return query(_sql, value);
-    
+
 };
 module.exports = {
     //暴露方法
