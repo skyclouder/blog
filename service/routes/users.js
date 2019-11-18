@@ -4,7 +4,7 @@ const userControl = require('../controller/users') //引入逻辑
 
 router.get('/', async (ctx, next) => {
   'use strict'
-  ctx.redirect('/user/login')
+  ctx.redirect('/index.html')
 })
 // 路由中间间，页面路由到／，就是端口号的时候，（网址），页面指引到／/user/login
 

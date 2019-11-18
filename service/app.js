@@ -13,7 +13,7 @@ var session = require('koa-session-minimal')
 var MysqlStore = require('koa-mysql-session')
 var config = require('./config/default.js')
 var cors = require('koa2-cors')
-
+const {historyApiFallback}  = require('koa2-connect-history-api-fallback');
 const users = require('./routes/users')
 // const account = require('./routes/account')
 
@@ -51,7 +51,8 @@ app.use(
     path: [/\/register/, /\/user\/login/]
   })
 )
-
+//返回html
+app.use(historyApiFallback({ whiteList: ['/api'] }));
 // middlewares
 app.use(convert(bodyparser({
   enableTypes: ['json', 'form', 'text']

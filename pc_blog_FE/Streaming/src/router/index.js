@@ -10,6 +10,11 @@ Vue.use(Router)
 export default new Router({
   mode:"history",
   routes: [
+    {                    //每一个链接都是一个对象
+      path: '/',         //链接路径
+      name: 'Log',
+      component: Log
+    },
     {
       path: '/log',
       name: 'Log',
